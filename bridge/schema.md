@@ -80,23 +80,21 @@ Below are the main tables available in the Bridge product, with key columns and 
 | CITY                     | TEXT           | City                         | Seattle         |
 | STATE                    | TEXT           | State                        | WA              |
 
-## Table: `brand_affinity`
-| Column         | Type      | Description                              | Example         |
-|---------------|-----------|------------------------------------------|----------------|
-| customer_id   | STRING    | Unique customer identifier               | CUST-1001      |
-| brand         | STRING    | Brand name                               | BrandX         |
-| affinity_score| FLOAT     | Calculated brand affinity score          | 0.87           |
-
-## Table: `segment_overlap`
-| Column         | Type      | Description                              | Example         |
-|---------------|-----------|------------------------------------------|----------------|
-| segment_a     | STRING    | First segment name                       | "Loyal Shoppers" |
-| segment_b     | STRING    | Second segment name                      | "BrandX Fans"    |
-| overlap_pct   | FLOAT     | Percentage overlap between segments      | 42.5           |
-
-## Table: `market_penetration`
-| Column         | Type      | Description                              | Example         |
-|---------------|-----------|------------------------------------------|----------------|
-| brand         | STRING    | Brand name                               | BrandX         |
-| region        | STRING    | Geographic region                        | Northwest      |
-| penetration   | FLOAT     | Market penetration percentage            | 18.2           |
+## Table: `INVENTORY_BATCHES`
+| Column                   | Type           | Description                  | Example         |
+|--------------------------|----------------|------------------------------|-----------------|
+| INVENTORY_EVENT_ID       | NUMBER         | Headset record identifier    | 10029291        |
+| POS_PRODUCT_ID           | TEXT           | Point of sale product identifier |  ABC123     |
+| STORE_ID                 | NUmber         | Store ID                     | 101             |
+| BATCH_ID                 | TEXT           | POS Package ID               | 100001          |
+| BATCH_ITEM_ID            | TEXT           | POS Line Item ID             | 100001-ABC      |
+| VENDOR_NAME              | TEXT           | Name of vendor for batch     | Herby's Distro  |
+| RECEIVE_DATE_UTC         | TIMESTAMP_NTZ  | Timestamp package was recived (UTC) | 2025-05-20 20:18:00.000 |
+| RECEIVE_DATE_LOCAL       | DATE           | Day package was received (in store's local time) | 2025-04-20 |
+| ROOM_INVENTORY           | VARIANT        | Dictionary of inventory counts by room | `{"Display":"1","Safe":"12"}` |
+| QUANTITY                 | NUMBER         | Original quantity received   | 100             |
+| QUANTITY_IN_STOCK        | NUMBER         | Current quantity in stock    | 90              |
+| COST_PER_UNIT            | NUMBER         | Unit cost                    | 37.50           |
+| TEST_RESULTS             | VARIANT        | Test results for batch       | `{"THC9_Milligrams": 4.69,"THC_Milligrams": 4.69}` |
+| EXTRA_DATA               | VARIANT        | Dictionary of additional data available  | `{ "MetrcPackage": "1A406030000B0A1000519200","SourcePackageId": "1A406030000B0A1000519200" } }`  |
+| LAST_UPDATE              | TIMESTAMP_NTZ  | Date of last inventory update (UTC)  | 2025-05-29 00:16:47.057 +0000 |
