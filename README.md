@@ -12,7 +12,7 @@ Vault provides:
 Vault is organized into three main products:
 
 - [`retailer/`](./retailer) — Transaction-level retail data for sales, baskets, and stores
-- [`bridge/`](./bridge) — Brand affinity, segment overlaps, and market penetration analytics
+- [`bridge/`](./bridge) — Real-time inventory, customer demographics, batches, and METRC package IDs
 - [`insights/`](./insights) — Category trends, market share, and brand launches
 
 Each product includes:
