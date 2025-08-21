@@ -2,21 +2,6 @@
 
 Below are the main tables available in the Retailer product, with key columns and example values for each. Column descriptions are provided where possible, otherwise left for your team to fill in.
 
-## Table: `baskets`
-| Column         | Type      | Description                              | Example         |
-|---------------|-----------|------------------------------------------|----------------|
-| basket_id     | STRING    | Unique identifier for each basket        | BSKT-123456    |
-| store_id      | STRING    | Store where transaction occurred         | STORE-001      |
-| transaction_ts| TIMESTAMP | Date/time of transaction                 | 2024-03-15 14:23:00 |
-| total_amount  | FLOAT     | Total value of the basket                | 87.50          |
-
-## Table: `basket_items`
-| Column     | Type    | Description                       | Example      |
-|------------|---------|-----------------------------------|--------------|
-| basket_id  | STRING  | Associated basket                  | BSKT-123456  |
-| sku        | STRING  | Stock Keeping Unit                 | SKU-98765    |
-| quantity   | INTEGER | Number of units purchased          | 2            |
-| price      | FLOAT   | Unit price at time of purchase     | 4.99         |
 
 ## Table: `stores`
 | Column     | Type    | Description                       | Example      |
