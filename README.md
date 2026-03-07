@@ -1,29 +1,99 @@
-# Vault Documentation
+<p align="center">
+  <a href="https://www.headset.io">
+    <img src="https://cdn.prod.website-files.com/640fe83bf3f9dfb92669d456/640fed396e869ffe886cf87b_Real-time%20Cannabis%20Data%2C%20Analytics%20%26%20Intelligence%20_%20Headset-1%20(1).svg" alt="Headset" width="280" />
+  </a>
+</p>
 
-Welcome to **Vault**—Headset’s premium data platform delivering direct, secure access to your raw data in Snowflake. Vault empowers developers, analysts, and data engineers to explore, analyze, and integrate retail, bridge, and insights datasets with confidence and flexibility.
+<h1 align="center">Vault</h1>
 
-## What is Vault?
-Vault provides:
-- **Direct Snowflake access** to your raw, granular data
-- **Flexible analytics** for SQL, BI tools, and programmatic workflows
-- **Premium support** for data-savvy teams
+<p align="center">
+  <strong>Your data. Your warehouse. No middleman.</strong>
+</p>
 
-## Product Sections
-Vault is organized into three main products:
-
-- [`retailer/`](./retailer) — Transaction-level retail data for sales, baskets, and stores
-- [`bridge/`](./bridge) — Real-time inventory, customer demographics, batches, and METRC package IDs
-- [`insights/`](./insights) — Category trends, market share, and brand launches
-
-Each product includes:
-- `README.md` — Product overview and data capabilities
-- `schema.md` — Data dictionary with tables and columns
-- `sample-queries.md` — Example SQL queries and use cases
-
-## Getting Started
-- See [`snowflake-basics.md`](./snowflake-basics.md) for connection and authentication tips
-- Refer to [`glossary.md`](./glossary.md) for definitions of key terms
+<p align="center">
+  <img src="https://img.shields.io/badge/Powered%20by-Snowflake-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white" alt="Powered by Snowflake" />
+  <img src="https://img.shields.io/badge/SQL-Ready-4B8BBE?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL Ready" />
+  <img src="https://img.shields.io/badge/Secure%20Data%20Share-Enabled-10B981?style=for-the-badge&logo=snowflake&logoColor=white" alt="Secure Data Share" />
+</p>
 
 ---
 
-Vault is designed for teams who demand clarity, transparency, and power from their data. Dive in and unlock actionable insights!
+Vault delivers the same cannabis market data that powers Headset's analytics — directly into your Snowflake account via [Secure Data Sharing](https://docs.snowflake.com/en/user-guide/data-sharing-intro). No ETL, no pipelines, no copies. The data stays in Snowflake and updates automatically.
+
+## Data Products
+
+Vault is organized into three products, each tailored to a different use case:
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### [Retailer](./retailer)
+**Your stores, your data**
+
+Transaction-level sales, customer profiles, product catalog, and inventory for retailers who want full access to their own operational data.
+
+6 views &middot; [Schema](./retailer/schema.md) &middot; [Queries](./retailer/sample-queries.md)
+
+</td>
+<td width="33%" valign="top">
+
+### [Bridge](./bridge)
+**Brand sell-through at retail**
+
+See how your products move through retail partners — sales, inventory, batches, and METRC package tracking for brands and distributors.
+
+6 views &middot; [Schema](./bridge/schema.md) &middot; [Queries](./bridge/sample-queries.md)
+
+</td>
+<td width="33%" valign="top">
+
+### [Insights](./insights)
+**The whole market**
+
+Aggregated, anonymized market data — category trends, brand benchmarking, pricing intelligence, and package size analysis across all tracked markets.
+
+4 views &middot; [Schema](./insights/schema.md) &middot; [Queries](./insights/sample-queries.md)
+
+</td>
+</tr>
+</table>
+
+## Getting Started
+
+**1. Accept the share** — Your Headset onboarding team will share a database to your Snowflake account. Accept it and give it whatever name you like.
+
+**2. Connect** — Use any Snowflake-compatible tool: SQL worksheets, Python, BI platforms, dbt, or anything else that speaks SQL. See [Snowflake Basics](./snowflake-basics.md) for connection examples in Python, Node.js, C#, Go, and Rust.
+
+**3. Query** — All data is in secure views, ready to `SELECT` immediately. Check the sample queries in each product section for a head start.
+
+## Quick Example
+
+```sql
+-- Top 10 products by revenue this month (Retailer)
+SELECT
+    PRODUCT_NAME,
+    BRAND,
+    CATEGORY,
+    SUM(REVENUE) AS total_revenue,
+    SUM(QUANTITY) AS total_units
+FROM SALES
+WHERE SOLD_DATE >= DATE_TRUNC('MONTH', CURRENT_DATE)
+GROUP BY PRODUCT_NAME, BRAND, CATEGORY
+ORDER BY total_revenue DESC
+LIMIT 10;
+```
+
+## Resources
+
+| Resource | Description |
+|----------|-------------|
+| [Snowflake Basics](./snowflake-basics.md) | Connection setup, authentication, and language-specific examples |
+| [Glossary](./glossary.md) | Definitions of key terms used across Vault |
+| [Headset Support](https://help.headset.io) | Help center for Headset products |
+
+---
+
+<p align="center">
+  <sub>Built with care by the <a href="https://www.headset.io">Headset</a> team</sub>
+</p>
