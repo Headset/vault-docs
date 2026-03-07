@@ -84,9 +84,17 @@ erDiagram
 - **Pricing analysis** — Compare base price, discounts, and revenue across stores and products
 - **Distribution coverage** — Understand which stores carry your products and identify expansion opportunities
 
+## Example Queries
+
+Ready-to-run SQL organized by topic:
+
+- [Sales](./examples/sales.md) — Revenue by store, top products, weekly trends, YoY comparisons, discount impact, demographics
+- [Inventory](./examples/inventory.md) — Current stock, low-stock alerts, days of supply, sell-through rate, inventory value
+- [Batches and Compliance](./examples/batches-and-compliance.md) — METRC package tracking, test results, batch traceability, expiration monitoring
+- [Products and Stores](./examples/products-and-stores.md) — Distribution coverage, new launches, stale products, store performance
+
 ## Further Reading
 
 - [Schema Reference](./schema.md) — Full column definitions and data types for every view
-- [Sample Queries](./sample-queries.md) — Ready-to-run SQL examples for common analyses
 - [Snowflake Basics](../snowflake-basics.md) — Connection setup and authentication
 - [Glossary](../glossary.md) — Definitions of key terms
