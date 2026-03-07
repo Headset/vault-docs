@@ -61,7 +61,7 @@ Aggregated, anonymized market data — category trends, brand benchmarking, pric
 
 ## Getting Started
 
-**1. Accept the share** — Your Headset onboarding team will share a database to your Snowflake account. Accept it and give it whatever name you like.
+**1. Accept the share** — Your Headset onboarding team will share a database to your Snowflake account. Accept it and give it whatever name you like. Don't have a Snowflake account? No problem — we can provision and manage one for you.
 
 **2. Connect** — Use any Snowflake-compatible tool: SQL worksheets, Python, BI platforms, dbt, or anything else that speaks SQL. See [Snowflake Basics](./snowflake-basics.md) for connection examples in Python, Node.js, C#, Go, and Rust.
 
