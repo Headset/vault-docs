@@ -1,8 +1,8 @@
 # Insights Data Dictionary
 
-Below are the main tables available in the Insights product, with key columns and example values for each. Column descriptions are provided where possible, otherwise left for your team to fill in.
+Below are the secure views available in the Insights product, with columns and example values for each.
 
-## Table: `CATEGORY`
+## View: `CATEGORY`
 | Column         | Type   | Description                    | Example      |
 |----------------|--------|--------------------------------|--------------|
 | SOLD_ON        | DATE   | Date of sale                   | 2024-01-01   |
@@ -13,7 +13,7 @@ Below are the main tables available in the Insights product, with key columns an
 | TOTAL_UNITS    | FLOAT  | Total units sold               | 5000         |
 | ACCOUNT_ID     | TEXT   | Account identifier             | ACCT-123     |
 
-## Table: `DAILY_SALES`
+## View: `DAILY_SALES`
 | Column                    | Type    | Description                         | Example          |
 |---------------------------|---------|-------------------------------------|------------------|
 | SOLD_ON                   | DATE    | Date of sale                        | 2024-04-01       |
@@ -51,7 +51,7 @@ Below are the main tables available in the Insights product, with key columns an
 | AVERAGE_COST_PER_ITEM     | NUMBER  | Average cost per item               | 16.00            |
 | ACCOUNT_ID                | TEXT    | Account identifier                  | ACCT-123         |
 
-## Table: `MONTHLY_SALES`
+## View: `MONTHLY_SALES`
 | Column                    | Type    | Description                         | Example          |
 |---------------------------|---------|-------------------------------------|------------------|
 | SOLD_MONTH                | DATE    | Month of sale                       | 2024-04-01       |
@@ -75,14 +75,30 @@ Below are the main tables available in the Insights product, with key columns an
 | 'trait_CBD Max (mg/ml)'   | TEXT    | Max CBD mg/ml                       | 4.2              |
 | 'trait_CBD Min (%)'       | TEXT    | Min CBD percent                     | 2.0              |
 | 'trait_CBD Min (mg/ml)'   | TEXT    | Min CBD mg/ml                       | 1.2              |
+| 'trait_Total CBD (mg)'    | TEXT    | Total CBD mg                        | 40               |
+| 'trait_Volume (ml)'       | TEXT    | Volume in ml                        | 30               |
+| CARTRIDGE_TYPE            | TEXT    | Cartridge type                      | 510-thread       |
+| NUMBER_OF_SERVINGS        | NUMBER  | Number of servings                  | 10               |
+| FLAVOR                    | TEXT    | Flavor description                  | Berry            |
+| STRAIN_NAME               | TEXT    | Strain name                         | Blue Dream       |
+| TOTAL_SALES               | NUMBER  | Total sales                         | 1200             |
+| TOTAL_UNITS               | NUMBER  | Total units sold                    | 500              |
+| TOTAL_COST                | NUMBER  | Total cost                          | 800              |
+| TOTAL_DISCOUNT            | NUMBER  | Total discount                      | 50               |
+| AVERAGE_PRICE_PER_ITEM    | NUMBER  | Average price per item              | 24.00            |
+| AVERAGE_COST_PER_ITEM     | NUMBER  | Average cost per item               | 16.00            |
+| ACCOUNT_ID                | TEXT    | Account identifier                  | ACCT-123         |
 
-## Table: `PACKAGE_SIZE`
+## View: `PACKAGE_SIZE`
 | Column          | Type     | Description                                 | Example        |
 |-----------------|----------|---------------------------------------------|----------------|
-| SOLD_ON_DATE    | DATE     | Date of sale                                | 2024-03-01     |
+| SOLD_ON         | DATE     | Date of sale                                | 2024-03-01     |
+| CURRENCY_CODE   | TEXT     | Currency code                               | USD            |
 | MARKET          | TEXT     | Market or region                            | Oregon         |
 | CATEGORY        | TEXT     | Product category                            | Concentrates   |
 | SEGMENT         | TEXT     | Product segment or subcategory              | Wax            |
-| BRAND           | TEXT     | Brand name                                  | BrandZ         |
-| TOTAL_NUMBER    | NUMBER   | Total units sold                            | 120            |
-| TOTAL_UN_NUMBER | NUMBER   | Total unique package sizes                  | 4              |
+| BRAND_NAME      | TEXT     | Brand name                                  | BrandZ         |
+| PACKAGE_SIZE    | TEXT     | Package size                                | 1g             |
+| TOTAL_SALES     | NUMBER   | Total sales                                 | 1200           |
+| TOTAL_UNITS     | NUMBER   | Total units sold                            | 120            |
+| ACCOUNT_ID      | TEXT     | Account identifier                          | ACCT-123       |
