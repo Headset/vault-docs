@@ -92,9 +92,17 @@ erDiagram
 
 The `SALES` view is intentionally wide (52 columns). It denormalizes store, product, employee, and customer data onto each transaction row. This means you can answer most questions directly from `SALES` without needing to join other views. The separate `STORES`, `PRODUCTS`, and `CUSTOMERS` views are useful when you need the full set of attributes for those entities or want to analyze them independently.
 
+## Example Queries
+
+Ready-to-run SQL organized by topic:
+
+- [Sales](./examples/sales.md) — Revenue by store, basket analysis, trends, discounts, medical/rec, delivery, payment types
+- [Customers](./examples/customers.md) — Top spenders, visit frequency, retention, demographics, referral sources, lapsed customers
+- [Inventory](./examples/inventory.md) — Stock levels, days of supply, batch tracking, vendor costs, dead stock
+- [Products and Stores](./examples/products-and-stores.md) — Catalog overview, store comparison, revenue per sqft, employee performance
+
 ## Further Reading
 
 - [Schema Reference](./schema.md) — Full column definitions and data types for every view
-- [Sample Queries](./sample-queries.md) — Ready-to-run SQL examples for common analyses
 - [Snowflake Basics](../snowflake-basics.md) — Connection setup and authentication
 - [Glossary](../glossary.md) — Definitions of key terms
