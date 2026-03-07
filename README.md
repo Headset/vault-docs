@@ -11,9 +11,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Powered%20by-Snowflake-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white" alt="Powered by Snowflake" />
-  <img src="https://img.shields.io/badge/SQL-Ready-4B8BBE?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL Ready" />
-  <img src="https://img.shields.io/badge/Secure%20Data%20Share-Enabled-10B981?style=for-the-badge&logo=snowflake&logoColor=white" alt="Secure Data Share" />
+  <a href="#"><img src="https://img.shields.io/badge/Powered%20by-Snowflake-29B5E8?style=for-the-badge&logo=snowflake&logoColor=white" alt="Powered by Snowflake" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/SQL-Ready-4B8BBE?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL Ready" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Secure%20Data%20Share-Enabled-10B981?style=for-the-badge&logo=snowflake&logoColor=white" alt="Secure Data Share" /></a>
 </p>
 
 ---
