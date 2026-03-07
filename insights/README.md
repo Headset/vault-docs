@@ -15,55 +15,14 @@ Insights delivers four secure views:
 | **MONTHLY_SALES** | The same product-level detail as `DAILY_SALES`, rolled up to the month — better for trend analysis over longer time horizons |
 | **PACKAGE_SIZE** | Sales and units broken down by package size, brand, category, and segment |
 
-## Data Relationships
+## Data Structure
 
-Insights views are relatively flat and independent. They share common dimensions (market, category, segment, brand) but are not joined through foreign keys the way Bridge and Retailer views are.
+Each Insights view is self-contained and pre-aggregated at a different grain. They are not designed to be joined together — each view independently answers a different class of question:
 
-```mermaid
-erDiagram
-    CATEGORY {
-        DATE SOLD_ON
-        TEXT MARKET
-        TEXT CATEGORY
-        FLOAT TOTAL_SALES
-        FLOAT TOTAL_UNITS
-    }
-    DAILY_SALES {
-        DATE SOLD_ON
-        TEXT INSIGHTS_PRODUCT_KEY
-        TEXT PRODUCT_NAME
-        TEXT MARKET
-        TEXT CATEGORY
-        TEXT SEGMENT
-        TEXT BRAND_NAME
-        NUMBER TOTAL_SALES
-        NUMBER TOTAL_UNITS
-    }
-    MONTHLY_SALES {
-        DATE SOLD_MONTH
-        TEXT INSIGHTS_PRODUCT_KEY
-        TEXT PRODUCT_NAME
-        TEXT MARKET
-        TEXT CATEGORY
-        TEXT SEGMENT
-        TEXT BRAND_NAME
-        NUMBER TOTAL_SALES
-        NUMBER TOTAL_UNITS
-    }
-    PACKAGE_SIZE {
-        DATE SOLD_ON
-        TEXT MARKET
-        TEXT CATEGORY
-        TEXT SEGMENT
-        TEXT BRAND_NAME
-        TEXT PACKAGE_SIZE
-        NUMBER TOTAL_SALES
-        NUMBER TOTAL_UNITS
-    }
-
-    DAILY_SALES }o--|| CATEGORY : "MARKET + CATEGORY + SOLD_ON"
-    MONTHLY_SALES }o--|| DAILY_SALES : "INSIGHTS_PRODUCT_KEY"
-```
+- **CATEGORY** — One row per market/category/date. The broadest view.
+- **DAILY_SALES** — One row per product/market/date. The most granular view.
+- **MONTHLY_SALES** — One row per product/market/month. Same grain as daily, rolled up.
+- **PACKAGE_SIZE** — One row per brand/category/segment/package size/date.
 
 ## Common Use Cases
 
