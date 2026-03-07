@@ -38,9 +38,16 @@ Each Insights view is self-contained and pre-aggregated at a different grain. Th
 
 `DAILY_SALES` and `MONTHLY_SALES` share the same columns (except `SOLD_ON` vs `SOLD_MONTH`) and the same product-level grain. Use daily when you need precise timing — launch dates, promotional impact, day-of-week patterns. Use monthly when you're looking at longer-term trends, as it's smaller and faster to query.
 
+## Example Queries
+
+Ready-to-run SQL organized by topic:
+
+- [Market Trends](./examples/market-trends.md) — Category sizing, market share, segment growth, cross-market comparisons
+- [Brand Analysis](./examples/brand-analysis.md) — Brand rankings, share trends, new launches, competitive benchmarking
+- [Pricing and Products](./examples/pricing-and-products.md) — Price trends, package sizes, potency, strains, flavors, cartridge types
+
 ## Further Reading
 
 - [Schema Reference](./schema.md) — Full column definitions and data types for every view
-- [Sample Queries](./sample-queries.md) — Ready-to-run SQL examples for common analyses
 - [Snowflake Basics](../snowflake-basics.md) — Connection setup and authentication
 - [Glossary](../glossary.md) — Definitions of key terms
