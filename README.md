@@ -71,7 +71,18 @@ Aggregated, anonymized market data — category trends, brand benchmarking, pric
 
 Vault data lives in Snowflake, so it works with any tool that has a Snowflake connector — no extra setup required.
 
-Tableau · Looker · Power BI · dbt · Python · Sigma · Hex · Mode · Metabase · Excel — and anything else that speaks SQL.
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Tableau-E97627?style=flat-square&logo=tableau&logoColor=white" alt="Tableau" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Looker-4285F4?style=flat-square&logo=looker&logoColor=white" alt="Looker" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black" alt="Power BI" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white" alt="dbt" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Sigma-000000?style=flat-square&logo=sigma&logoColor=white" alt="Sigma" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Hex-F97316?style=flat-square&logo=hex&logoColor=white" alt="Hex" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Mode-5856D6?style=flat-square&logo=mode&logoColor=white" alt="Mode" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Metabase-509EE3?style=flat-square&logo=metabase&logoColor=white" alt="Metabase" /></a>
+  <a href="#"><img src="https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="Excel" /></a>
+</p>
 
 ## Quick Example
 
