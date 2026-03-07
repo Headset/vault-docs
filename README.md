@@ -67,6 +67,23 @@ Aggregated, anonymized market data — category trends, brand benchmarking, pric
 
 **3. Query** — All data is in secure views, ready to `SELECT` immediately. Check the sample queries in each product section for a head start.
 
+## Works With Your Stack
+
+Vault data lives in Snowflake, so it works with any tool that has a Snowflake connector — no extra setup required.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Tableau-E97627?style=flat-square&logo=tableau&logoColor=white" alt="Tableau" />
+  <img src="https://img.shields.io/badge/Looker-4285F4?style=flat-square&logo=looker&logoColor=white" alt="Looker" />
+  <img src="https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black" alt="Power BI" />
+  <img src="https://img.shields.io/badge/dbt-FF694B?style=flat-square&logo=dbt&logoColor=white" alt="dbt" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Sigma-000000?style=flat-square&logo=sigma&logoColor=white" alt="Sigma" />
+  <img src="https://img.shields.io/badge/Hex-F97316?style=flat-square&logo=hex&logoColor=white" alt="Hex" />
+  <img src="https://img.shields.io/badge/Mode-5856D6?style=flat-square&logo=mode&logoColor=white" alt="Mode" />
+  <img src="https://img.shields.io/badge/Metabase-509EE3?style=flat-square&logo=metabase&logoColor=white" alt="Metabase" />
+  <img src="https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white" alt="Excel" />
+</p>
+
 ## Quick Example
 
 ```sql
