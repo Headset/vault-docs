@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Internal-only working docs (specs, plans, brainstorming output) — keep out of this public repo
+docs/superpowers/
