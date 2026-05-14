@@ -1,12 +1,12 @@
 # Menu Data Product
 
-Menu Data is a Vault data product built on **web-scraped dispensary menus** across North America. Where Retailer, Bridge, and Insights show you what *sold*, Menu Data shows you what's **on the shelf right now** — every store, every product, every active deal, refreshed continuously.
+Menu Data is a Vault data product built on **web-scraped dispensary menus** across North America. Where Retailer, Bridge, and Insights show you what *sold*, Menu Data shows you what's **on the shelf right now** — every store, every product, every active deal, refreshed nightly.
 
 ## Who this is for
 
 **For brands** — understand exactly where you're carried, identify white-space accounts, see how your shelf prices compare to MSRP and to competitors, and watch which SKUs are turning fastest where.
 
-**For sophisticated retailers** — scope nearby competitors' menus: their pricing by category, the deals they're running, and which categories move at which kinds of stores in your area.
+**For retailers** — scope nearby competitors' menus: their pricing by category, the deals they're running, and which categories move at which kinds of stores in your area.
 
 ## What's included
 
