@@ -82,7 +82,7 @@ SELECT
 FROM menuitems m
 JOIN stores s USING (store_id)
 WHERE s.state = 'CA'              -- ⬅ swap state
-  AND m.category = 'Edibles'      -- ⬅ swap category
+  AND m.category = 'Edible'       -- ⬅ swap category
   AND brand_name IS NOT NULL
 GROUP BY 1
 ORDER BY store_count DESC
@@ -147,7 +147,7 @@ FROM menuitems m
 JOIN stores s USING (store_id)
 WHERE ST_DWITHIN(s.location, ST_POINT(-122.4194, 37.7749), 16093.4)    -- 10 miles
   -- ⬅ swap longitude, latitude, and radius (meters)
-  AND m.category IN ('Flower', 'Vapor Pens', 'Edibles')                 -- ⬅ trim categories
+  AND m.category IN ('Flower', 'Vapor Pens', 'Edible')                  -- ⬅ trim categories
   AND m.price > 0
 GROUP BY 1, 2, 3, 4
 ORDER BY miles_away, m.category;
