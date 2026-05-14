@@ -14,3 +14,8 @@ A quick reference for key terms you’ll encounter in Vault’s data products.
 | Repeat Purchase    | When a customer buys the same SKU more than once                          |
 | Bridge Table       | A table connecting two datasets (e.g., customers and products)             |
 | Insights           | Actionable findings derived from data analysis                             |
+| Velocity Score     | Headset's relative measure of how fast a store moves product, modeled from observed menu activity     |
+| Velocity Band      | Categorical bucket of velocity (`High` / `Medium` / `Low`) used for quick filtering and segmenting     |
+| Est. Days on Hand  | Projected days until a product runs out at the current observed sell rate                              |
+| On-shelf           | A product currently visible on a dispensary menu — distinct from sold-through (actual sales)           |
+| Fuzzy Brand Match  | Web-scraped `brand_name` values vary in spelling/case; use `ILIKE '%pattern%'` rather than `=`         |
