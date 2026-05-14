@@ -22,11 +22,11 @@ Vault delivers the same cannabis market data that powers Headset's analytics —
 
 ## Data Products
 
-Vault is organized into three products, each tailored to a different use case:
+Vault is organized into four products, each tailored to a different use case:
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 
 ### [Retailer](./retailer)
 **Your stores, your data**
@@ -36,7 +36,7 @@ Transaction-level sales, customer profiles, product catalog, and inventory for r
 6 views &middot; [Schema](./retailer/schema.md) &middot; [Queries](./retailer/sample-queries.md)
 
 </td>
-<td width="33%" valign="top">
+<td width="50%" valign="top">
 
 ### [Bridge](./bridge)
 **Brand sell-through at retail**
@@ -46,7 +46,9 @@ See how your products move through retail partners — sales, inventory, batches
 6 views &middot; [Schema](./bridge/schema.md) &middot; [Queries](./bridge/sample-queries.md)
 
 </td>
-<td width="33%" valign="top">
+</tr>
+<tr>
+<td width="50%" valign="top">
 
 ### [Insights](./insights)
 **The whole market**
@@ -54,6 +56,16 @@ See how your products move through retail partners — sales, inventory, batches
 Aggregated, anonymized market data — category trends, brand benchmarking, pricing intelligence, and package size analysis across all tracked markets.
 
 4 views &middot; [Schema](./insights/schema.md) &middot; [Queries](./insights/sample-queries.md)
+
+</td>
+<td width="50%" valign="top">
+
+### [Menu Data](./menu)
+**Every store, every product on shelf**
+
+Web-scraped dispensary menus across North America — who carries what, at what price, and what deals they're running. Find your distribution footprint, scope competitors, benchmark shelf prices.
+
+3 views &middot; [Schema](./menu/schema.md) &middot; [Queries](./menu/sample-queries.md)
 
 </td>
 </tr>
