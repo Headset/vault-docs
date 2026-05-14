@@ -141,3 +141,65 @@ func main() {
 - Use roles to manage data access.
 
 For more, see the [Snowflake docs](https://docs.snowflake.com/).
+
+## After You're Connected
+
+Once your client is connected, set context before querying. The exact schema depends on which product you have:
+
+| Product   | Database (or your alias) | Schema           |
+|-----------|--------------------------|------------------|
+| Retailer  | `headset_retailer`       | `retailer_share` |
+| Bridge    | `headset_bridge`         | `bridge_share`   |
+| Insights  | `headset_insights`       | `insights_share` |
+| Menu Data | `menu_vault`             | `PUBLIC`         |
+
+> **Menu Data note** — Menu Data uses the `PUBLIC` schema, **not** a product-suffixed schema like the other three. If you don't see the views, this is the most common reason.
+
+```sql
+USE DATABASE <name_you_gave_the_share>;
+USE SCHEMA PUBLIC;             -- for Menu Data
+-- USE SCHEMA insights_share;  -- for Insights, etc.
+
+SHOW VIEWS;                    -- confirm which views you can see
+SELECT * FROM STORES LIMIT 10; -- sample any view
+```
+
+### Picking a warehouse
+
+For ad-hoc exploration, an `XS` warehouse is fine and the cheapest option. Scale up only when you hit slow queries.
+
+```sql
+USE WAREHOUSE default_wh;       -- or your preferred warehouse
+```
+
+### What you can and can't do with the shared views
+
+These are **secure views**. You can:
+
+- `SELECT` from them freely
+- Join them with your own tables
+- Create your own tables / views derived from them in *your* database
+
+You cannot:
+
+- `CREATE TABLE AS SELECT * FROM <shared_view>` in someone else's account
+- Reverse-engineer the underlying tables
+- Modify the views
+
+### Case-sensitivity
+
+Snowflake stores unquoted identifiers as uppercase. Both of these work the same way:
+
+```sql
+SELECT * FROM stores;
+SELECT * FROM STORES;
+```
+
+But these are **different**:
+
+```sql
+SELECT * FROM "STORES";   -- references uppercase 'STORES' (works)
+SELECT * FROM "stores";   -- references lowercase 'stores' (fails — no such object)
+```
+
+When in doubt, leave identifiers unquoted.
