@@ -58,7 +58,7 @@ JOIN stores s USING (store_id),
 WHERE d.is_archived = false
   AND ST_DWITHIN(s.location, ST_POINT(-122.4194, 37.7749), 16093.4)   -- 10 miles
   -- ⬅ swap longitude, latitude, radius
-  AND pc.value::text IN ('Flower', 'Edibles', 'Vapes')                -- ⬅ trim (deals use scraped category names — see schema notes)
+  AND pc.value::text IN ('Flower', 'Edible', 'Vapor Pens')            -- ⬅ trim categories
 ORDER BY miles_away, pc.value::text;
 ```
 

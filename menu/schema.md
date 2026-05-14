@@ -109,7 +109,7 @@ The Menu Data product exposes three secure views in your shared database, all un
 | STOREWIDE | BOOLEAN | Applies to the entire store | false |
 | FIRST_TIME_CUSTOMER | BOOLEAN | Only for first-time customers | false |
 | BRANDS | ARRAY | Brand names the deal applies to | `["STIIIZY","Wyld"]` |
-| PRODUCT_CATEGORIES | ARRAY | Categories the deal applies to | `["Edibles"]` |
+| PRODUCT_CATEGORIES | ARRAY | Categories the deal applies to | `["Edible"]` |
 | CITY | TEXT | Denormalized store city | San Francisco |
 | STATE | TEXT | Denormalized store state | CA |
 | LOCATION | GEOGRAPHY | Denormalized store coordinates | `POINT(-122.41 37.77)` |
@@ -121,7 +121,7 @@ The Menu Data product exposes three secure views in your shared database, all un
 - `DISCOUNT_AMOUNT` is **TEXT, not numeric**. The scraper preserves whatever format the menu uses — values like `"20%"`, `"$5"`, `"BOGO"`, `"Buy 2 get 1"` all appear. Don't blindly cast to number; filter to a single `discount_type` first.
 - Filter `WHERE is_archived = false` to limit to currently-active deals.
 - `BRANDS` and `PRODUCT_CATEGORIES` are arrays; flatten with `LATERAL FLATTEN` to filter or join.
-- `PRODUCT_CATEGORIES` values are scraped raw and **do not match `menuitems.category`** values. Deals commonly use plural / colloquial forms (`Edibles`, `Vapes`, `Pre-Rolls`) where `menuitems.category` uses canonical singular forms (`Edible`, `Vapor Pens`, `Pre-Roll`). When in doubt, check `SELECT DISTINCT pc.value FROM deals d, LATERAL FLATTEN(input => d.product_categories) pc` to see actual values.
+- `PRODUCT_CATEGORIES` uses the same canonical category vocabulary as `menuitems.category` (e.g. `Edible`, `Vapor Pens`, `Pre-Roll`, `Flower`, `Concentrates`). You can filter or join the two views on category names without normalization.
 - `CLAIMED_COUNT` is most meaningful as a relative signal within a market — absolute counts depend on the source.
 - A `storewide = true` deal usually has empty `BRANDS` and `PRODUCT_CATEGORIES` arrays.
 
