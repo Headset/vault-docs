@@ -19,3 +19,9 @@ A quick reference for key terms you’ll encounter in Vault’s data products.
 | Est. Days on Hand  | Projected days until a product runs out at the current observed sell rate                              |
 | On-shelf           | A product currently visible on a dispensary menu — distinct from sold-through (actual sales)           |
 | Fuzzy Brand Match  | Web-scraped `brand_name` values vary in spelling/case; use `ILIKE '%pattern%'` rather than `=`         |
+| Returning Customer | In brand-loyalty views: a customer from a brand's prior-window cohort who came back to the category in the current window (the denominator for loyalty rates) |
+| Loyal Customer     | A returning customer who repurchased *only* the target brand                                          |
+| Retained Customer  | A returning customer who repurchased the target brand *and* at least one competitor                   |
+| Lost Customer      | A returning customer who came back to the category but did *not* repurchase the target brand          |
+| Repeat Buyer Rate  | Share of a brand's returning customers who repurchased it at all — loyal + retained                    |
+| Cross-Shop         | When a brand's customers also buy competing brands; `BRAND_CROSS_SHOP` ranks a brand's top competitors |
