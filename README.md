@@ -63,9 +63,9 @@ Aggregated, anonymized market data — category trends, brand benchmarking, pric
 ### [Menu Data](./menu)
 **Every store, every product on shelf**
 
-Web-scraped dispensary menus across North America — who carries what, at what price, and what deals they're running. Find your distribution footprint, scope competitors, benchmark shelf prices.
+Web-scraped dispensary menus across North America — who carries what, at what price, what deals they're running, and how all of it has changed over time. Find your distribution footprint, scope competitors, benchmark shelf prices, track doors won and lost.
 
-3 views &middot; [Schema](./menu/schema.md) &middot; [Queries](./menu/sample-queries.md)
+4 views &middot; [Schema](./menu/schema.md) &middot; [Queries](./menu/sample-queries.md)
 
 </td>
 </tr>

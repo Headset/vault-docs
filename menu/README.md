@@ -10,13 +10,14 @@ Menu Data is a Vault data product built on **web-scraped dispensary menus** acro
 
 ## What's included
 
-Three secure views in your shared database under the `PUBLIC` schema:
+Four secure views in your shared database under the `PUBLIC` schema:
 
 | View | Grain | What it answers |
 |---|---|---|
 | `STORES` | One row per dispensary | Where are stores? How big? How fast do they move? |
 | `MENUITEMS` | One row per product per store | What's on the menu, at what price, in what stock? |
 | `DEALS` | One row per promotion | What promotions are stores running, on what? |
+| `EVENTS` | One row per menu change | What changed, when? Launches, delistings, price moves, low stock, doors won and lost — full history since May 2026 |
 
 See the [Schema reference](./schema.md) for column-by-column details.
 
@@ -25,9 +26,11 @@ See the [Schema reference](./schema.md) for column-by-column details.
 ```
 STORES ─ store_id ─< MENUITEMS
 STORES ─ store_id ─< DEALS
+STORES ─ store_id ─< EVENTS >─ menu_item_id ─ MENUITEMS
 ```
 
-- `MENUITEMS` and `DEALS` both link to `STORES` via `STORE_ID`.
+- `MENUITEMS`, `DEALS` and `EVENTS` all link to `STORES` via `STORE_ID`.
+- `EVENTS` links to `MENUITEMS` via `MENU_ITEM_ID` while the listing is still on a menu.
 - `DEALS` and `MENUITEMS` aren't directly joined; relate them by `BRANDS` (after `LATERAL FLATTEN`) plus `STATE`.
 
 ## Where to find the data
@@ -80,12 +83,15 @@ ORDER BY sku_count DESC;
 - Competitor reach — your store count vs. brand X / Y / Z
 - Shelf-price benchmarking — your prices vs. peers in the same category
 - New-account leads — stores you don't yet sell to in a target market
+- Doors won and lost — month-by-month net distribution, plus the stores that just dropped you
+- Launch tracking — how fast a new SKU spread, store by store
 
 **Retailer-side**
 - Nearby-store pricing benchmarks by category
 - What promotions competitors within X miles are running
 - Category mix and velocity at peer stores
 - Stores in your area carrying brands you might want to negotiate for
+- Price-cut radar — which nearby competitors are marking down which categories, and whether the cuts stick
 
 See the example files below.
 
@@ -98,6 +104,7 @@ Menu Data is **web-scraped**. That has implications you should know about:
 - **Products disappear and reappear.** A menu can lose a SKU one day and have it back the next. `LAST_SEEN` is your truth.
 - **Prices reflect scrape time, not transaction time.** Use as menu intelligence, not as a record of what was actually paid.
 - **Some fields are nullable.** Especially `RATING`, `GOOGLE_PLACE_ID`, `DESCRIPTION`, and `INVENTORY_HISTORY` for newly-seen items.
+- **`EVENTS` records coverage changes too.** When a store is first tracked, its whole menu "arrives" as `PRODUCT_ADDED` / `BRAND_ADDED` events on one day. Older events can also point at store listings that have since been re-keyed or closed. See the [`EVENTS` notes](./schema.md#view-events) before trending distribution over time.
 
 ## Example queries
 
@@ -107,6 +114,7 @@ Ready-to-run queries organized by what you're trying to answer:
 - [Competitive landscape](./examples/competitive-landscape.md) — Who shares shelves with me? How do prices compare?
 - [Promotions](./examples/promotions.md) — What deals are running on my brand, my competitors, in my area?
 - [Velocity and stock](./examples/velocity-and-stock.md) — What's turning fast? What's out of stock? Inventory trends.
+- [Menu changes](./examples/menu-changes.md) — Doors won and lost, launch rollouts, price moves and markdowns, SKUs that keep running low.
 
 ## Further reading
 

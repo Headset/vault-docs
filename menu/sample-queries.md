@@ -6,3 +6,4 @@ Sample queries are organized by what you're trying to answer:
 - [Competitive landscape](./examples/competitive-landscape.md) — Who shares shelves with me? How do prices compare?
 - [Promotions](./examples/promotions.md) — What deals are running on my brand, my competitors, in my area?
 - [Velocity and stock](./examples/velocity-and-stock.md) — What's turning fast? What's out of stock? Inventory trends.
+- [Menu changes](./examples/menu-changes.md) — Doors won and lost, launch rollouts, price moves and markdowns, SKUs that keep running low.
