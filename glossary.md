@@ -19,6 +19,8 @@ A quick reference for key terms you’ll encounter in Vault’s data products.
 | Est. Days on Hand  | Projected days until a product runs out at the current observed sell rate                              |
 | On-shelf           | A product currently visible on a dispensary menu — distinct from sold-through (actual sales)           |
 | Fuzzy Brand Match  | Web-scraped `brand_name` values vary in spelling/case; use `ILIKE '%pattern%'` rather than `=`         |
+| Menu Event         | One observed change to a dispensary menu (product added/removed, price move, low stock, brand added/removed, new store) — a row in Menu Data's `EVENTS` view |
+| Door               | A store carrying at least one of a brand's listings; a door is gained on `BRAND_ADDED` and lost on `BRAND_REMOVED` |
 | Returning Customer | In brand-loyalty views: a customer from a brand's prior-window cohort who came back to the category in the current window (the denominator for loyalty rates) |
 | Loyal Customer     | A returning customer who repurchased *only* the target brand                                          |
 | Retained Customer  | A returning customer who repurchased the target brand *and* at least one competitor                   |
