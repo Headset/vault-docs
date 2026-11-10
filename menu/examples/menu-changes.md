@@ -9,8 +9,9 @@ History starts **2026-05-16** and is kept indefinitely.
 **Before you start**
 
 - **Always filter on `event_date`.** It's how the view is laid out on disk, so a date filter makes every query below fast and cheap.
-- **Use the event's own `state`, `city` and `location`** for market analysis. About a fifth of older events point at a `store_id` that is no longer in `STORES` (the listing was re-keyed or went dark); those rows still carry their state and coordinates, but an inner join to `STORES` drops them.
-- **Coverage changes look like activity.** When a store is first tracked, every product and brand on its menu "arrives" at once. The door-tracking queries below skip each store's first week for that reason.
+- **Use the event's own `state`, `source` and `location`** for market analysis. About a quarter of events from before September 2026 (under one in ten since) point at a `store_id` that is no longer in `STORES` (the listing was re-keyed or went dark). Those rows have no `store_name` or `city`, but they still carry their state and coordinates; an inner join to `STORES` drops them.
+- **Coverage changes look like activity.** When a store is first tracked, every product and brand on its menu "arrives" at once. The door-tracking and rollout queries below skip each store's first week for that reason.
+- **Adds include comebacks.** `PRODUCT_ADDED` and `BRAND_ADDED` fire every time something returns to a menu, including after it sold out. Over the 30 days to 2026-11-09, at least 40% of added listings and 53% of brand pickups were at a store that had carried them earlier. To count genuinely new placements, keep only a store's first event for a product, as the rollout and spread queries below do.
 
 ---
 
@@ -133,66 +134,93 @@ WHERE e.event_type = 'BRAND_ADDED'
 ORDER BY e.event_date DESC, e.store_name, product;
 ```
 
-`BRAND_REMOVED` carries the same `data:items` list for the SKUs that left.
+`BRAND_REMOVED` carries the same `data:items` list for the SKUs that left. A store coming back after your brand sold out there shows up here too; the doors query above counts that as a door lost and regained.
 
 ---
 
 ## Launch rollout curve
 
-How fast a product spread: the first day each store listed it, and the cumulative store count per state.
+How fast a product spread: the day each store first listed it, and the cumulative store count per state.
 
 ```sql
-WITH first_listed AS (
-  SELECT
-      store_id,
-      state,
-      MIN(event_date) AS first_listed_on
+WITH first_tracked AS (
+  SELECT store_id, event_date AS tracked_on
   FROM events
-  WHERE event_type = 'PRODUCT_ADDED'
-    AND brand_name   ILIKE '%stiiizy%'        -- ⬅ your brand
+  WHERE event_type = 'STORE_ADDED'
+),
+first_seen AS (
+  -- each store's first event for the product; ties put the add last, so a
+  -- same-day removal of another size still reads as "already carried it"
+  SELECT store_id, state, event_date, event_type
+  FROM events
+  WHERE brand_name   ILIKE '%stiiizy%'        -- ⬅ your brand
     AND product_name ILIKE '%blue dream%'     -- ⬅ your product
-  GROUP BY 1, 2
+    AND event_type IN ('PRODUCT_ADDED', 'PRODUCT_REMOVED', 'PRICE_INCREASE', 'PRICE_DECREASE', 'LOW_STOCK')
+  QUALIFY ROW_NUMBER() OVER (PARTITION BY store_id
+                             ORDER BY event_date, IFF(event_type = 'PRODUCT_ADDED', 1, 0)) = 1
 )
 SELECT
-    state,
-    first_listed_on,
-    COUNT(*)                                                         AS new_stores,
-    SUM(COUNT(*)) OVER (PARTITION BY state ORDER BY first_listed_on) AS stores_to_date
-FROM first_listed
+    fs.state,
+    fs.event_date                                                         AS first_listed_on,
+    COUNT(*)                                                              AS new_stores,
+    SUM(COUNT(*)) OVER (PARTITION BY fs.state ORDER BY fs.event_date)     AS stores_to_date
+FROM first_seen fs
+LEFT JOIN first_tracked f
+       ON f.store_id = fs.store_id
+      AND fs.event_date BETWEEN f.tracked_on AND DATEADD(day, 7, f.tracked_on)
+WHERE fs.event_type = 'PRODUCT_ADDED'   -- first seen being added, not already on the menu
+  AND f.store_id IS NULL                -- skip a store's onboarding week
 GROUP BY 1, 2
 ORDER BY 1, 2;
 ```
 
-Products already on a menu before 2026-05-16 have no `PRODUCT_ADDED` row at that store, so this works best for launches after that date.
+A store counts on the day it first lists the product. Stores whose first event for it is a removal or a price move already carried it and are left out, as are stores in their first week of tracking. History starts 2026-05-16, so the curve is clearest for launches after that date.
 
 ---
 
 ## Fastest-spreading products in your category
 
-Which products landed on the most new menus in a market over the last two weeks — new launches and distribution pushes alike. Excludes your own brand so it reads as a competitor watch list.
+Which products reached the most stores that had never carried them, in a market over the last two weeks: new launches and distribution pushes alike, with restocks left out. Excludes your own brand so it reads as a competitor watch list.
 
 ```sql
 WITH brand_patterns AS (
   SELECT column1 AS pattern FROM VALUES
     ('%stiiizy%'),
     ('%stizzy%')
+),
+first_tracked AS (
+  SELECT store_id, event_date AS tracked_on
+  FROM events
+  WHERE event_type = 'STORE_ADDED'
+),
+first_seen AS (
+  -- each store's first event for each product (see the rollout query above)
+  SELECT store_id, brand_name, product_name, menu_item_id, event_date, event_type
+  FROM events
+  WHERE state = 'CA'                                     -- ⬅ swap the state
+    AND category = 'Edible'                              -- ⬅ swap the category
+    AND event_type IN ('PRODUCT_ADDED', 'PRODUCT_REMOVED', 'PRICE_INCREASE', 'PRICE_DECREASE', 'LOW_STOCK')
+  QUALIFY ROW_NUMBER() OVER (PARTITION BY store_id, brand_name, product_name
+                             ORDER BY event_date, IFF(event_type = 'PRODUCT_ADDED', 1, 0)) = 1
 )
 SELECT
-    e.brand_name,
-    e.product_name,
-    COUNT(DISTINCT e.store_id) AS stores_added,
-    MIN(e.event_date)          AS first_added,
-    ROUND(MEDIAN(m.price), 2)  AS median_price_now
-FROM events e
+    fs.brand_name,
+    fs.product_name,
+    COUNT(DISTINCT fs.store_id) AS new_stores,
+    MIN(fs.event_date)          AS first_added,
+    ROUND(MEDIAN(m.price), 2)   AS median_price_now
+FROM first_seen fs
+LEFT JOIN first_tracked f
+       ON f.store_id = fs.store_id
+      AND fs.event_date BETWEEN f.tracked_on AND DATEADD(day, 7, f.tracked_on)
 LEFT JOIN menuitems m USING (menu_item_id)
-WHERE e.event_type = 'PRODUCT_ADDED'
-  AND e.state = 'CA'                                   -- ⬅ swap the state
-  AND e.category = 'Edible'                            -- ⬅ swap the category
-  AND e.event_date >= DATEADD(day, -14, CURRENT_DATE())
-  AND NOT EXISTS (SELECT 1 FROM brand_patterns bp WHERE e.brand_name ILIKE bp.pattern)
+WHERE fs.event_type = 'PRODUCT_ADDED'
+  AND fs.event_date >= DATEADD(day, -14, CURRENT_DATE())
+  AND f.store_id IS NULL                                 -- skip a store's onboarding week
+  AND NOT EXISTS (SELECT 1 FROM brand_patterns bp WHERE fs.brand_name ILIKE bp.pattern)
 GROUP BY 1, 2
-HAVING COUNT(DISTINCT e.store_id) >= 3
-ORDER BY stores_added DESC
+HAVING COUNT(DISTINCT fs.store_id) >= 3
+ORDER BY new_stores DESC
 LIMIT 50;
 ```
 
@@ -257,7 +285,7 @@ WHERE event_type = 'PRICE_DECREASE'
 GROUP BY 1;
 ```
 
-For a sense of scale: across California vape pens from May to October 2026, about five in six price cuts were back to full price within two weeks — most within a day or two. A rising share of sticky cuts is the early sign of real price compression in a category.
+For a sense of scale: across California vape pens from mid-May to October 2026, about four in five price cuts (82%) were back at full price within two weeks, typically the next day. A rising share of sticky cuts is the early sign of real price compression in a category.
 
 ---
 

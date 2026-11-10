@@ -155,11 +155,11 @@ A change log of every menu: one row each time a product is added or removed, a p
 
 | Event type | Fires when | `OLD_VALUE` → `NEW_VALUE` |
 |---|---|---|
-| `PRODUCT_ADDED` | A listing appears on a store's menu | — |
+| `PRODUCT_ADDED` | A listing appears on a store's menu, including when it comes back after selling out | — |
 | `PRODUCT_REMOVED` | A listing leaves a store's menu and doesn't come straight back | — |
 | `PRICE_INCREASE` / `PRICE_DECREASE` | The shelf price of a listing changes (sale markdowns included) | old price → new price |
 | `LOW_STOCK` | Stock drops from above 5 units to 5 or fewer | old stock → new stock |
-| `BRAND_ADDED` | A store goes from zero of a brand's listings to at least one | — |
+| `BRAND_ADDED` | A store goes from zero of a brand's listings to at least one, including a return after the brand sold out | — |
 | `BRAND_REMOVED` | A store goes from at least one of a brand's listings to zero | — |
 | `STORE_ADDED` | A store's menu appears in the data for the first time | — |
 
@@ -176,9 +176,10 @@ A change log of every menu: one row each time a product is added or removed, a p
 **Notes:**
 - **Filter on `EVENT_DATE` first.** The view is laid out by date, so a date range keeps queries fast on a table that grows by roughly 27 million rows a month.
 - `EVENT_DATE` is the crawl day the change was **observed**, not a transaction time. When a store's whole menu goes dark, its removals are confirmed after four days and dated back to the day the menu disappeared.
-- `STORE_NAME`, `CITY` and `COUNTY` reflect the store as it is listed today. About a fifth of events before September 2026 belong to listings that were since re-keyed or closed: their `STORE_ID` no longer appears in `STORES`, and `STORE_NAME` / `CITY` / `COUNTY` are NULL. `STATE`, `SOURCE` and `LOCATION` are always the values at event time — prefer them for market-level history, and use `LEFT JOIN stores` when you need store attributes.
+- `STORE_NAME`, `CITY` and `COUNTY` reflect the store as it is listed today. About a quarter of events before September 2026 (under one in ten since) belong to listings that were since re-keyed or closed: their `STORE_ID` no longer appears in `STORES`, and `STORE_NAME` / `CITY` / `COUNTY` are NULL. `STATE`, `SOURCE` and `LOCATION` are always the values at event time — prefer them for market-level history, and use `LEFT JOIN stores` when you need store attributes.
 - **Coverage changes look like activity.** When a store or menu platform is first tracked, every product and brand on it "arrives" at once, producing spikes of `PRODUCT_ADDED` / `BRAND_ADDED` (and the reverse when coverage drops). For distribution trends, skip a store's first week after its `STORE_ADDED` event — see [Doors gained and lost](./examples/menu-changes.md#doors-gained-and-lost-by-month).
 - Products already on a menu at 2026-05-16 have no `PRODUCT_ADDED` row at that store.
+- **Adds include comebacks.** A listing that sells out and returns gets a new `PRODUCT_ADDED`, and a brand that returns to a store gets a new `BRAND_ADDED`: over the 30 days to 2026-11-09, at least 40% of added listings and 53% of brand pickups were at stores that had carried them earlier. For genuinely new placements, keep only a store's first event for a product — see [Launch rollout curve](./examples/menu-changes.md#launch-rollout-curve).
 - A handful of dates have no events at all (2026-07-13, 07-22, 08-28, 09-16, 10-09): menus weren't captured those nights, so the changes are recorded on the following day. Expect a gap followed by a roughly doubled day when charting daily counts.
 - `DATA` is NULL on most events before 2026-05-28; use `OLD_VALUE` / `NEW_VALUE` for price and stock history across the full range.
 - `PRICE_*` events track the shelf price, so a temporary sale shows as a decrease followed by an increase back. See [Temporary markdowns vs. price cuts that stuck](./examples/menu-changes.md#temporary-markdowns-vs-price-cuts-that-stuck).
